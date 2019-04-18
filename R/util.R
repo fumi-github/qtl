@@ -184,11 +184,11 @@ create.map <-
             return(sort(c(a,map))+minloc)
         }
         else if(step>0 && off.end == 0) {
-            a <- seq(floor(min(map)),max(map),
+            a <- seq(step-(minloc%%step),max(map),
                      by = step)
             if(any(is.na(match(a, map)))) {
                 a <- a[is.na(match(a,map))]
-                names(a) <- paste("loc",a,sep="")
+                names(a) <- paste("loc",a+minloc,sep="")
                 return(sort(c(a,map))+minloc)
             }
             else return(map+minloc)
@@ -321,7 +321,7 @@ create.map <-
 
             if(ncol(map)==1) return(map+minloc)
 
-            a <- seq(floor(min(map[1,])),max(map[1,]),
+            a <- seq(step-(minloc%%step),max(map[1,]),
                      by = step)
             a <- a[is.na(match(a,map[1,]))]
 
@@ -334,7 +334,7 @@ create.map <-
             m1 <- c(a,map[1,])
             m2 <- c(b,map[2,])
 
-            names(m1) <- names(m2) <- c(paste("loc",a,sep=""),markernames)
+            names(m1) <- names(m2) <- c(paste("loc",a+minloc,sep=""),markernames)
             return(rbind(sort(m1),sort(m2))+minloc)
         }
         else {
